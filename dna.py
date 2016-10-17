@@ -1,5 +1,21 @@
-__author__ = 'zmiller'
+def hist(s):
+    """returns the histogram of the characters in s
 
+    >>> hist("AAGGT")
+    {'A': 2, 'T': 1, 'G': 2}
+
+    >>> hist("!!xx")
+    {'!': 2, 'x': 2}
+
+    """
+    x = {}
+    for char in s:
+        if char not in x:
+            x[char] = 1
+        else:
+            x[char] += 1
+
+    return x
 
 def base_frequency(strand):
     """return frequency of dna base occurrence
@@ -16,7 +32,9 @@ def base_frequency(strand):
     >>> base_frequency("acgt")
     'guanine (G):1, adenine (A):1, thymine (T):1, cytosine (C):1'
     """
-    pass
+    dna = hist(strand.upper())
+    results = 'guanine (G):{}, adenine (A):{}, thymine (T):{}, cytosine (C):{}'.format(dna['G'], dna['A'], dna['T'], dna['C'])
+    return results
 
 
 def reverse_strand(strand):
@@ -29,4 +47,16 @@ def reverse_strand(strand):
     'ACCGGGTTTT'
 
     """
-    pass
+    rev = list(strand.upper())
+    dic = {"A": "T", "G": "C", "T": "A", "C": "G"}
+    rev = [dic[n] if n in dic.keys() else n for n in rev]
+    rev.reverse()
+    rev = "".join(rev)
+    return rev
+    print rev
+    
+    
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
